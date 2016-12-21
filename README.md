@@ -120,7 +120,9 @@ src采用横向目录结构，所有index页面要用到的东西，包括sass�
 
 ### 指令运行项目
 > npm i
+>
 > npm run build 生成打包后的文件
+>
 > npm run dev
 
 
@@ -133,6 +135,7 @@ src采用横向目录结构，所有index页面要用到的东西，包括sass�
 
 ### 3 属性赋值
 > \<span id = {this.props.idName}>\</span>
+>
 > \<span className = "nav-box">\</span>
 
 ### 4 带js表达式的插值 xxx = {三元表达式}
@@ -170,6 +173,7 @@ renderTabInit(text, idx) {
 
 ### 2 style 
 > 第一个括号是插值，第二个括号表示style对象
+>
 > style={{color: '#FEC264', fontSize: '40px'}}
 
 <br/>
@@ -224,12 +228,16 @@ render() {
 ## 表单控件
 表单组件有几个受用户影响的属性：
 > value，用于input、textarea组件
+>
 > checked， 用于类型为 checkbox 或者 radio 的 input 组件
+>
 > selected，用于option组件
 
 每个表单控件都有一个onChange事件用来监听组件的变化:
 > 当 input 或 textarea 的value 发生变化时
+>
 > input 的 checked 状态改变时
+>
 > option 的 selected 状态改变时
 
 ### 受限组件： 
@@ -325,7 +333,9 @@ const Content = React.createClass({
 ```
 
 > 在使用时间绑定choose={this.switchChoice} 的时候，老版本的react需要手动绑定this
+>
 > choose={this.switchChoice.bind(this)}
+>
 > 这样不会导致子组件的this指向错误，但是最新版的不用（如绑定this会有警告） 
 
 ```javascript
@@ -349,9 +359,13 @@ var Tab = React.createClass({
 
 ## 获取dom元素
 > 当你的组件还没有挂载在容器上，可以用this.refs访问
+>
 > 已经挂载完毕，通过react-dom提供findDOMNode方法拿到组件对应的dom
+>
 > 另外：
+>
 > 如果ref是设置在原生HTML元素上，它拿到的就是DOM元素;
+>
 > 如果设置在自定义组件上，它拿到的就是组件实例，这时候就需要通过 findDOMNode来拿到组件的DOM元素。
 
 ```javascript
