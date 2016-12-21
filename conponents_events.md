@@ -164,7 +164,7 @@ render (){
 你会发现，你想要给props的方法里传的自定义参数index能正常获取，
 而框架自带参数event怎么都拿不到，
 结果只能如下，event会变成undefined。
-￼
+![](https://ohovav7hg.qnssl.com/reactws9.png)
 
 ### 错误姿势2
 ```javascript
@@ -210,7 +210,7 @@ render (){
 当发现多传了参数，导致了框架自带的默认参数event怎么都取不到的时候，
 决定不传参数，用其他歪门邪道（比如自定义属性）拿到想要的参数。
 在input中输入内容，结果如下。虽然正确，但这样写感觉实在是不够智能。
-￼
+![](https://ohovav7hg.qnssl.com/reactws10.png)
 总之，这样写虽然解决了问题，但我还是觉得姿势还是不对。
 
 ### 正确姿势
@@ -262,7 +262,7 @@ render (){
 
 ## 案例3
 案例3纯粹是为了演示一个增加操作，在增加一条记录后，需要清空input的内容时踩的坑
-![](https://ohovav7hg.qnssl.com/reactws9.png)
+![](https://ohovav7hg.qnssl.com/reactws11.png)
 
 ```javascript
 // 父组件
