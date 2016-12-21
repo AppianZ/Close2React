@@ -164,7 +164,7 @@ renderTabInit(text, idx) {
 		 	>{text}</Tab>)
 },
 ```
-有可能会遇到一些大锅，请看[react父子组件间的事件绑定](https://github.com/AppianZ/Close2React/blob/master/conponents_events.md)
+有可能会遇到一些BOOM爆炸的bug，请看[react父子组件间的事件绑定](https://github.com/AppianZ/Close2React/blob/master/conponents_events.md)
 <br/>
 
 ## css和style的绑定
@@ -334,11 +334,13 @@ const Content = React.createClass({
 });
 ```
 
-> 在使用时间绑定choose={this.switchChoice} 的时候，老版本的react需要手动绑定this
+> 在使用事件绑定choose={this.switchChoice} 的时候，因为没有采用class的学法所以不用bind
 >
-> choose={this.switchChoice.bind(this)}
+> class的写法的时候需要bind: choose={this.switchChoice.bind(this)}
 >
-> 这样不会导致子组件的this指向错误，但是最新版的不用（如绑定this会有警告） 
+> 不用class的写法的时候不绑定不会导致子组件的this指向错误，如果绑定了还会报错（如绑定this会有警告） 
+>
+> 使用了class的写法的时候则需要手动bind, 这个在文章最后会详细解说 
 
 ```javascript
 // tab 子组件
@@ -395,3 +397,116 @@ var MyComponent = React.createClass({
 ## 几个常用api
 ### componentDidMount (组件挂载完成后)
 ### componentWillReceiveProps(nextProps)（当传入的props有变化）
+
+- - - - --
+
+# 花一分钟,改成正统的class写法
+## 第一步，把所有createClass 换成 class xxx extends Component
+我们用一半的es6的姿势写出来的代码如下：
+```javascript
+// half-es6
+import React from 'react';
+const List = React.createClass({ // 用createdClass创建一个组件
+	getInitialState() { // 初始化数据state    
+		return { // 在函数的return里定义state
+			status: false, 
+		}
+	}, // 这里一定写逗号
+	saveLiValue() { // 组件内要调用的function
+		this.setState({
+			status: false
+		})
+	},
+	....
+})
+```
+
+我们用完整的es6的姿势写出来的代码如下：
+
+```javascript
+// 利用class姿势的es6
+import React, {Component} from 'react';
+class List extends Component{
+	constructor(props){
+		super(props);
+		this.state = { 
+			status: false, 
+		}
+	} // 没有逗号
+	
+	saveLiValue() {
+		this.setState({
+			status: false
+		})
+	}
+	....
+}		
+```
+
+## 第二步，在父组件中，给所有需要传递给子组件的方法加bind(this)
+> 这句话有点绕口，但一定要理解。
+> 1、第一层意思是在父组件上加bind(this)
+> 2、加的目的是防止子组件在调用方法的时候this指向错误
+
+例如下面这个初始化列表的函数
+```javascript
+// half-es6
+// 如果在这种写法下bind(this)，编译后的页面会报警告
+// 大概是说react已经提供了丰富的方法可以避免指向错误，不需要手动bind
+initListLi(val, idx) {
+	return (
+		<List {...val} key={idx} index={idx}
+			  handleTxtChange={this.handleTxtChange}
+			  handleCheckChange={this.handleCheckChange}
+			  deleteItem={this.deleteItem}
+		/>
+	)
+},
+
+render() {
+	return (
+		<article className="page">
+			<h3 className="h3">List总条数: {this.state.list.length}</h3>
+			<h3 className="h3">目前完成条数: {this.state.didCount}</h3>
+			<ul className="ul">
+				{
+					this.state.list.map(this.initListLi)
+				}
+			</ul>
+			<Add addLiItem={this.addLiItem}/>
+		</article>
+	)
+}
+```
+但是使用了class的写法之后，就可能会出现警告说 props 是null
+这个时候就需要手动bind(this)
+```javascript
+// es6的class写法下的函数的时间绑定，
+// 如果子组件会需要调用函数，则在父组件中手动向子组件中bind(this)
+initListLi(val, idx) {
+	return (
+		<List {...val} key={idx} index={idx}
+              // 以下三个方法都是在向List组件中绑定this
+  			  handleTxtChange={this.handleTxtChange.bind(this)} 
+			  handleCheckChange={this.handleCheckChange.bind(this)}
+			  deleteItem={this.deleteItem.bind(this)}
+		/>
+	)
+}
+
+render() {
+	return (
+		<article className="page">
+			<h3 className="h3">List总条数: {this.state.list.length}</h3>
+			<h3 className="h3">目前完成条数: {this.state.didCount}</h3>
+			<ul className="ul">
+				{
+					this.state.list.map(this.initListLi.bind(this)) //子组件中会需要调用函数
+				}
+			</ul>
+			<Add addLiItem={this.addLiItem.bind(this)}/>
+		</article>
+	)
+}
+```
+
