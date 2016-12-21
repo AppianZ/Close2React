@@ -10,7 +10,6 @@ half-es6和master实现的功能一样, 实现了**CURD + Axios + Others**
 [half-es6](https://github.com/AppianZ/Close2React/tree/half-es6)的写法并没有完全使用es6的class的概念, [master](https://github.com/AppianZ/Close2React)是完善了它
 
 
-
 ## 环境配置
 写react就需要先配置webpack还有jsx
 首先，新建一个项目，npm init
@@ -144,6 +143,7 @@ src采用横向目录结构，所有index页面要用到的东西，包括sass�
 ### 5 事件绑定
 事件绑定和属性绑定一样
 ```javascript
+// 如果没有使用class继承的写法的话
 getInitialState() {
 	return {
 		tabTxt: ['CURD', 'Axios', 'Others'],
@@ -242,6 +242,7 @@ render() {
 
 ### 受限组件： 
 ```javescript
+	//es5
     render: function() {
         return <input type="text" value="Hello!" />;
      }
@@ -250,20 +251,21 @@ render() {
 
 如果要让用户修改的值有用，则需要：
 ```javascript
-  getInitialState: function() {
+  getInitialState() {
     return {value: 'Hello!'};
   },
-  handleChange: function(event) {
+  handleChange(event) {
     this.setState({value: event.target.value});
   },
-  render: function() {
-    var value = this.state.value;
+  render() {
+    let value = this.state.value;
     return <input type="text" value={value} onChange={this.handleChange} />;
   }
 ```
 
 ### 不受限组件：
 ```javescript
+	//es5
    render: function() {
       return (
           <div>
@@ -340,7 +342,7 @@ const Content = React.createClass({
 
 ```javascript
 // tab 子组件
-var Tab = React.createClass({
+const Tab = React.createClass({
 	chooseTab() {
 		this.props.choose(this.props.idx); //一定要将父组件的方法在子组件中做一个中转
 	},
@@ -369,6 +371,7 @@ var Tab = React.createClass({
 > 如果设置在自定义组件上，它拿到的就是组件实例，这时候就需要通过 findDOMNode来拿到组件的DOM元素。
 
 ```javascript
+//es5
 var MyComponent = React.createClass({
   handleClick: function() {
     this.refs.myTextInput.getDOMNode().focus(); // 通过this.refs.xxxxx拿到元素
@@ -392,3 +395,121 @@ var MyComponent = React.createClass({
 ## 几个常用api
 ### componentDidMount (组件挂载完成后)
 ### componentWillReceiveProps(nextProps)（当传入的props有变化）
+
+---
+
+
+# 花一分钟,改成正统的class写法
+
+## 第一步，把所有createClass 换成 class xxx extends Component
+我们用一半的es6的姿势写出来的代码如下：
+```javascript
+// half-es6
+import React from 'react';
+const List = React.createClass({ // 用createdClass创建一个组件
+	getInitialState() { // 初始化数据state    
+		return { // 在函数的return里定义state
+			status: false, 
+		}
+	}, // 这里一定写逗号
+	saveLiValue() { // 组件内要调用的function
+		this.setState({
+			status: false
+		})
+	},
+	....
+})
+```
+
+我们用完整的es6的姿势写出来的代码如下：
+
+```javascript
+// 利用class姿势的es6
+import React, {Component} from 'react';
+class List extends Component{
+	constructor(props){
+		super(props);
+		this.state = { 
+			status: false, 
+		}
+	} // 没有逗号
+	
+	saveLiValue() {
+		this.setState({
+			status: false
+		})
+	}
+	....
+}	
+```
+
+## 第二步，在父组件中，给所有需要传递给子组件的方法加bind(this)
+> 这句话有点绕口，但一定要理解。
+>
+> 1、第一层意思是在父组件上加bind(this)
+>
+> 2、加的目的是防止子组件在调用方法的时候this指向错误
+
+例如下面这个初始化列表的函数
+
+```javascript
+// half-es6
+// 如果在这种写法下bind(this)，编译后的页面会报警告
+// 大概是说react已经提供了丰富的方法可以避免指向错误，不需要手动bind
+initListLi(val, idx) {
+	return (
+		<List {...val} key={idx} index={idx}
+			  handleTxtChange={this.handleTxtChange}
+			  handleCheckChange={this.handleCheckChange}
+			  deleteItem={this.deleteItem}
+		/>
+	)
+},
+
+render() {
+	return (
+		<article className="page">
+			<h3 className="h3">List总条数: {this.state.list.length}</h3>
+			<h3 className="h3">目前完成条数: {this.state.didCount}</h3>
+			<ul className="ul">
+				{
+					this.state.list.map(this.initListLi)
+				}
+			</ul>
+			<Add addLiItem={this.addLiItem}/>
+		</article>
+	)
+}
+```
+但是使用了class的写法之后，就可能会出现警告说 props 是null
+这个时候就需要手动bind(this)
+```javascript
+// es6的class写法下的函数的时间绑定，
+// 如果子组件会需要调用函数，则在父组件中手动向子组件中bind(this)
+initListLi(val, idx) {
+	return (
+		<List {...val} key={idx} index={idx}
+              // 以下三个方法都是在向List组件中绑定this
+  			  handleTxtChange={this.handleTxtChange.bind(this)} 
+			  handleCheckChange={this.handleCheckChange.bind(this)}
+			  deleteItem={this.deleteItem.bind(this)}
+		/>
+	)
+}
+
+render() {
+	return (
+		<article className="page">
+			<h3 className="h3">List总条数: {this.state.list.length}</h3>
+			<h3 className="h3">目前完成条数: {this.state.didCount}</h3>
+			<ul className="ul">
+				{
+					this.state.list.map(this.initListLi.bind(this)) //子组件中会需要调用函数
+				}
+			</ul>
+			<Add addLiItem={this.addLiItem.bind(this)}/>
+		</article>
+	)
+}
+
+```

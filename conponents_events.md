@@ -10,7 +10,7 @@
 const Content = React.createClass({
 	getInitialState() {
 		return {
-			tabTxt: ['About A', 'About B', 'About C'],
+			tabTxt: ['CURD', 'Axios', 'Others'],
 			choice: 0, //目前激活的tab的下标
 		}
 	},
@@ -35,7 +35,7 @@ const Content = React.createClass({
 
 自以为把方法传入了子组件，就在Tab子组件中直接this.props.choose调用父组件的方法
 ```JavaScript
-var Tab = React.createClass({
+const Tab = React.createClass({
 	render(){
 		return (
 			<span className={this.props.idx == this.props.choice? "tab on" : "tab"}
@@ -62,7 +62,7 @@ var Tab = React.createClass({
 
 ### 正确姿势
 ```javascript
-var Tab = React.createClass({
+const Tab = React.createClass({
 	chooseTab() { // 子组件的中转函数
 		this.props.choose(this.props.idx); //在这里调用父组件的函数
 	},
@@ -88,7 +88,7 @@ var Tab = React.createClass({
 ### 错误示范
 ```javascript
 // 父组件
-var PageA = React.createClass({
+const PageA = React.createClass({
 	getInitialState() { ... }, // 初始化todolist的数据
 	componentDidMount(){ ... }, // 挂载组件时的函数
 	initDidCount() { ... }, // 更新完成的进度
