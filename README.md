@@ -164,7 +164,7 @@ renderTabInit(text, idx) {
 		 	>{text}</Tab>)
 },
 ```
-有可能会遇到一些大锅，请看[react父子组件间的事件绑定](https://github.com/AppianZ/Close2React/blob/master/conponents_events.md)
+有可能会遇到一些BOOM爆炸的bug，请看[react父子组件间的事件绑定](https://github.com/AppianZ/Close2React/blob/master/conponents_events.md)
 <br/>
 
 ## css和style的绑定
@@ -334,11 +334,13 @@ const Content = React.createClass({
 });
 ```
 
-> 在使用时间绑定choose={this.switchChoice} 的时候，老版本的react需要手动绑定this
+> 在使用事件绑定choose={this.switchChoice} 的时候，因为没有采用class的学法所以不用bind
 >
-> choose={this.switchChoice.bind(this)}
+> class的写法的时候需要bind: choose={this.switchChoice.bind(this)}
 >
-> 这样不会导致子组件的this指向错误，但是最新版的不用（如绑定this会有警告） 
+> 不用class的写法的时候不绑定不会导致子组件的this指向错误，如果绑定了还会报错（如绑定this会有警告） 
+>
+> 使用了class的写法的时候则需要手动bind, 这个在文章最后会详细解说 
 
 ```javascript
 // tab 子组件
