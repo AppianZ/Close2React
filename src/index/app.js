@@ -10,7 +10,7 @@ import PageC from './components/page_c';
 const Content = React.createClass({
 	getInitialState() {
 		return {
-			tabTxt: ['About A', 'About B', 'About C'],
+			tabTxt: ['CURD', 'Axios', 'Others'],
 			choice: 0,
 		}
 	},
