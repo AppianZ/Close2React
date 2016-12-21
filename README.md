@@ -1,6 +1,6 @@
 # 一段人人都应该知道的从vue到react的过渡史
 
-#写在前面
+## 写在前面
 以前写Vue写惯了，心血来潮，写起了react。
 
 目前该项目有两个分支, `half-es6` + `master`
@@ -109,11 +109,13 @@ npm run dev，就可以在浏览器上看到初始化的页面
 ![](https://ohovav7hg.qnssl.com/reactws3.png)
 
 把这两项勾选掉，保存，就一片清净了。
+
 ![](https://ohovav7hg.qnssl.com/reactws4.png)
 
 ### 项目描述
 Public是打包后生成的目录，src是写目录
 src采用横向目录结构，所有index页面要用到的东西，包括sass和js都写在index目录下。
+
 ![](https://ohovav7hg.qnssl.com/reactws5.png)
 
 ### 指令运行项目
@@ -122,8 +124,7 @@ src采用横向目录结构，所有index页面要用到的东西，包括sass�
 > npm run dev
 
 
-- - - - --
-# 插值 
+## 数据绑定
 ### 1 文本插值 
 > \<span>{text}\</span>
 
@@ -163,7 +164,7 @@ renderTabInit(text, idx) {
 有可能会遇到一些大锅，请看[react父子组件间的事件绑定](https://github.com/AppianZ/Close2React/blob/master/components_events.md)
 <br/>
 
-# css和style的绑定
+## css和style的绑定
 ### 1 className
 > className={this.props.idx == this.props.choice? "tab on" : "tab"}
 
@@ -173,7 +174,7 @@ renderTabInit(text, idx) {
 
 <br/>
 
-# 列表渲染 & 条件渲染
+## 列表渲染 & 条件渲染
 在getInitalState中定义了一个数组tabTxt
 ```javascript
 getInitialState() {
@@ -220,7 +221,7 @@ render() {
 ```
 
 
-# 表单控件
+## 表单控件
 表单组件有几个受用户影响的属性：
 > value，用于input、textarea组件
 > checked， 用于类型为 checkbox 或者 radio 的 input 组件
@@ -231,7 +232,7 @@ render() {
 > input 的 checked 状态改变时
 > option 的 selected 状态改变时
 
-## 受限组件： 
+### 受限组件： 
 ```javescript
     render: function() {
         return <input type="text" value="Hello!" />;
@@ -253,7 +254,7 @@ render() {
   }
 ```
 
-## 不受限组件：
+### 不受限组件：
 ```javescript
    render: function() {
       return (
@@ -274,7 +275,7 @@ render() {
 ```
 
 
-#  父子组件通信
+##  父子组件通信
 ### 父子组件通信
 ```javascript
 // 父组件，相当于最大的组件
@@ -346,7 +347,7 @@ var Tab = React.createClass({
 });
 ```
 
-# 获取dom元素
+## 获取dom元素
 > 当你的组件还没有挂载在容器上，可以用this.refs访问
 > 已经挂载完毕，通过react-dom提供findDOMNode方法拿到组件对应的dom
 > 另外：
@@ -373,7 +374,7 @@ var MyComponent = React.createClass({
 });
 ```
 
-- - - - --
-# 几个常用api
+
+## 几个常用api
 ### componentDidMount (组件挂载完成后)
 ### componentWillReceiveProps(nextProps)（当传入的props有变化）
