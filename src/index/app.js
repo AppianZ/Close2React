@@ -30,9 +30,9 @@ const Content = React.createClass({
 	
 	render() {
 		let currentPage = null;
-		if(this.state.choice == 0) {
+		if (this.state.choice == 0) {
 			currentPage = <PageA />
-		} else if (this.state.choice == 1){
+		} else if (this.state.choice == 1) {
 			currentPage = <PageB />
 		} else {
 			currentPage = <PageC />
@@ -52,11 +52,11 @@ const Content = React.createClass({
 
 
 const App = React.createClass({
-	  render(){
-		  return (
+	render(){
+		return (
 			<Content />
-		  )
-	  }
+		)
+	}
 });
 
 export default App;

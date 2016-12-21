@@ -81,7 +81,7 @@ const Add = React.createClass({
 		});
 		this.setState({
 			addValue: ''
-		}, ()=>{
+		}, ()=> {
 			this.refs.addIpt.value = '';
 		});
 	},
@@ -90,7 +90,7 @@ const Add = React.createClass({
 		return (
 			<div>
 				<input className="ipt" onChange={this.handleAddChange} value={this.addStatus} ref="addIpt"/>
-				<button className="btn btn-save" style={{float: 'left'}} onClick={this.add}>添加</button>
+				<button className="btn btn-save" style={{ float: 'left' }} onClick={this.add}>添加</button>
 			</div>
 		)
 	}
@@ -146,7 +146,7 @@ const PageA = React.createClass({
 	},
 	
 	deleteItem(idx) {
-		var temp = this.state.list.splice(idx, 1);
+		let temp = this.state.list.splice(idx, 1);
 		this.setState({
 			list: this.state.list
 		});

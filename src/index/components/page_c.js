@@ -3,8 +3,8 @@
  */
 import React from 'react';
 
-var PageC = React.createClass({
-	render: function(){
+const PageC = React.createClass({
+	render() {
 		return (
 			<article className="page">
 				<div id="pageImg"></div>
