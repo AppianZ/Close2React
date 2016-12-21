@@ -143,7 +143,7 @@ src采用横向目录结构，所有index页面要用到的东西，包括sass�
 ```javascript
 getInitialState() {
 	return {
-		tabTxt: ['About A', 'About B', 'About C'],
+		tabTxt: ['CURD', 'Axios', 'Others'],
 		choice: 0,
 	}
 },
@@ -283,7 +283,7 @@ render() {
 const Content = React.createClass({
 	getInitialState() {
 		return {
-			tabTxt: ['About A', 'About B', 'About C'],
+			tabTxt: ['CURD', 'Axios', 'Others'],
 			choice: 0, // 当前选中的tab下标
 		}
 	},
