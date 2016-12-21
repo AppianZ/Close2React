@@ -161,7 +161,7 @@ renderTabInit(text, idx) {
 		 	>{text}</Tab>)
 },
 ```
-有可能会遇到一些大锅，请看[react父子组件间的事件绑定](https://github.com/AppianZ/Close2React/blob/master/components_events.md)
+有可能会遇到一些大锅，请看[react父子组件间的事件绑定](https://github.com/AppianZ/Close2React/blob/master/conponents_events.md)
 <br/>
 
 ## css和style的绑定
