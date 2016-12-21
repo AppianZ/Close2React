@@ -5,6 +5,7 @@
 
 #navBox {
   width: 100%;
+  min-width: 600px;
   border-bottom: 1px solid #fafafa;
   box-shadow: 0 4px 30px rgba(0, 0, 0, .2);
   .tab {
@@ -28,6 +29,7 @@
 #pageBox {
   display: block;
   margin: 20px;
+  min-width: 600px;
   .page {
     padding: 20px;
     border: 1px solid #FC9C9D;

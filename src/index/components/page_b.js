@@ -29,7 +29,6 @@ var PageB = React.createClass({
 			keyword: '',
 			list: [],
 			loading: false,
-			loadTemp: '<h2 style="color: green;">we are loading</h2>'
 		}
 	},
 	
@@ -65,15 +64,21 @@ var PageB = React.createClass({
 	render(){
 		let targetTemp = null;
 		if(this.state.loading) {
-			targetTemp = this.state.loadTemp;
+			targetTemp = '<h2 style="color: green;">we are searching.</h2>';
 		} else if(this.state.list.length == 0) {
-			targetTemp = '<h2 style="color: red;">nothing</h2>'
+			targetTemp = '<h2 style="color: red;">nothing.</h2>';
 		} else {
 			targetTemp = ''
 		}
 		return (
 			<article className="page">
-				<input className="ipt" type="text" defaultValue={this.keyword} onChange={this.handleSearchKey} ref="searchIpt" onKeyUp={this.handleKeyUp}/>
+				<h3 className="h3">利用axios发起请求,搜索github用户</h3>
+				<input className="ipt" type="text"
+					   defaultValue={this.keyword}
+					   onChange={this.handleSearchKey}
+					   ref="searchIpt"
+					   onKeyUp={this.handleKeyUp}
+					   placeholder="您可以在这里搜索github用户名"/>
 				<button className="btn btn-save" onClick={this.searchUserAxios}>搜索</button>
 				<div dangerouslySetInnerHTML={{__html: targetTemp}}/>
 				<List data={this.state.list}/>
