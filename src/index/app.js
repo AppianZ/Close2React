@@ -1,32 +1,35 @@
 /**
  * Created by appian on 2016/12/14.
  */
-import React from 'react';
+import React, {Component} from 'react';
 import Tab from './components/tab';
 import PageA from './components/page_a';
 import PageB from './components/page_b';
 import PageC from './components/page_c';
 
-const Content = React.createClass({
-	getInitialState() {
-		return {
+
+class Content extends Component{
+	constructor(props){
+		super(props);
+		this.state = {
 			tabTxt: ['CURD', 'Axios', 'Others'],
 			choice: 0,
-		}
-	},
+		};
+		
+	}
 	
 	switchChoice(idx){
 		this.setState({
 			choice: idx
 		})
-	},
+	}
 	
 	renderTabInit(text, idx) {
 		return (<Tab key={idx} idx={idx}
-					 choose={this.switchChoice}
+					 choose={this.switchChoice.bind(this)}
 					 choice={this.state.choice}
 		>{text}</Tab>)
-	},
+	}
 	
 	render() {
 		let currentPage = null;
@@ -40,7 +43,7 @@ const Content = React.createClass({
 		return (
 			<div id="content">
 				<div id="navBox">
-					{this.state.tabTxt.map(this.renderTabInit)}
+					{this.state.tabTxt.map(this.renderTabInit.bind(this))}
 				</div>
 				<div id="pageBox">
 					{currentPage}
@@ -48,15 +51,21 @@ const Content = React.createClass({
 			</div>
 		)
 	}
-});
+	
+}
 
 
-const App = React.createClass({
-	  render(){
-		  return (
+
+class App extends Component{
+	constructor(props){
+		super(props);
+	}
+	
+	render() {
+		return (
 			<Content />
-		  )
-	  }
-});
+		)
+	}
+}
 
 export default App;

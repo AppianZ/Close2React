@@ -3,9 +3,9 @@
  */
 import './sass/index.scss';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import App from './app';
 
-const app = document.createElement('div');
-document.body.appendChild(app);
-ReactDOM.render(<App />, app);
+const div = document.createElement('div');
+document.body.appendChild(div);
+render(<App />, div);

@@ -1,10 +1,14 @@
 /**
  * Created by appian on 2016/12/14.
  */
-import React from 'react';
+import React, { Component } from 'react';
 import Axios from 'axios';
 
-const List = React.createClass({
+class List extends Component{
+	constructor(props) {
+		super(props);
+	}
+	
 	initLi(value, idx) {
 		return(
 			<li className="li" key={idx}>
@@ -12,35 +16,36 @@ const List = React.createClass({
 				<span className="span">{value.login}</span>
 			</li>
 		)
-	},
+	}
 	
 	render (){
 		return (
 			<ul>
-				{this.props.data.map(this.initLi)}
+				{this.props.data.map(this.initLi.bind(this))}
 			</ul>
 		)
 	}
-});
+}
 
-var PageB = React.createClass({
-	getInitialState(){
-		return {
+class PageB extends Component{
+	constructor(props){
+		super(props);
+		this.state = {
 			keyword: '',
 			list: [],
 			loading: false,
 		}
-	},
+	}
 	
 	handleSearchKey(event){
 		this.setState({
 			keyword: event.target.value
 		})
-	},
+	}
 	
 	handleKeyUp(event) {
 		if(event.keyCode === 13)this.searchUserAxios();
-	},
+	}
 	
 	searchUserAxios(){
 		this.setState({
@@ -59,7 +64,7 @@ var PageB = React.createClass({
 		.catch(function (error) {
 			console.log(error);
 		});
-	},
+	}
 	
 	render(){
 		let targetTemp = null;
@@ -75,16 +80,16 @@ var PageB = React.createClass({
 				<h3 className="h3">利用axios发起请求,搜索github用户</h3>
 				<input className="ipt" type="text"
 					   defaultValue={this.keyword}
-					   onChange={this.handleSearchKey}
+					   onChange={this.handleSearchKey.bind(this)}
 					   ref="searchIpt"
-					   onKeyUp={this.handleKeyUp}
+					   onKeyUp={this.handleKeyUp.bind(this)}
 					   placeholder="您可以在这里搜索github用户名"/>
-				<button className="btn btn-save" onClick={this.searchUserAxios}>搜索</button>
+				<button className="btn btn-save" onClick={this.searchUserAxios.bind(this)}>搜索</button>
 				<div dangerouslySetInnerHTML={{__html: targetTemp}}/>
 				<List data={this.state.list}/>
 			</article>
 		)
 	}
-});
+}
 
 export default PageB;
