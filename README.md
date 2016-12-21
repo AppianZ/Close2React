@@ -3,6 +3,8 @@
 ## 写在前面
 以前写Vue写惯了，心血来潮，写起了react。
 
+项目使用框架版本主要有 react(15.4.1) + react-dom(15.4.1) + webpack(1.13.3) + axios(0.15.3) + node(6.2.2), 详情具体可见下文的【环境配置】
+
 目前该项目有两个分支, `half-es6` + `master`
 
 half-es6和master实现的功能一样, 实现了**CURD + Axios + Others**
@@ -113,7 +115,7 @@ npm run dev，就可以在浏览器上看到初始化的页面
 
 ### 项目描述
 Public是打包后生成的目录，src是写目录
-src采用横向目录结构，所有index页面要用到的东西，包括sass和js都写在index目录下。
+src采用横向目录结构(自创词 •༝•)，即所有index页面要用到的东西，包括sass和js都写在index目录下。
 
 ![](https://ohovav7hg.qnssl.com/reactws5.png)
 
