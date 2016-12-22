@@ -402,8 +402,8 @@ var MyComponent = React.createClass({
 
 
 ## 几个常用api
-### componentDidMount (组件挂载完成后)
-### componentWillReceiveProps(nextProps)（当传入的props有变化）
+### componentDidMount 
+### componentWillReceiveProps(nextProps)
 
 ---
 
