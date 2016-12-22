@@ -14,15 +14,15 @@ half-es6和master实现的功能一样, 实现了**CURD + Axios + Others**
 
 ## 环境配置
 写react就需要先配置webpack还有jsx
+
 首先，新建一个项目，npm init
+
 然后在package中加入下面这些依赖
 
 ```json
   "dependencies": {
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
-    "react-redux": "^5.0.1",
-    "react-router": "^3.0.0"
   },
   "devDependencies": {
     "axios": "^0.15.3",
@@ -56,7 +56,7 @@ half-es6和master实现的功能一样, 实现了**CURD + Axios + Others**
 ```
 
 ### webpack.config
-在webpack的配置中，我想要的目录结构是横向目录，目的是达到，我在src下编辑我想要的文件，打包后生成到public下去。
+在webpack的配置中，我想要的目录结构是横向目录(自创词 •༝•，即所有index页面要用到的东西，包括sass和js都写在index目录下,底下会有目录示意图)，目的是达到，我在src下编辑我想要的文件，打包后生成到public下去。
 写在配置最前面的是路径的配置
 
 ```javascript
@@ -93,12 +93,14 @@ babel: { //配置babel
 },
 ```
 
-npm run dev，就可以在浏览器上看到初始化的页面
+npm run dev，会自动打开localhost:8200,就可以在浏览器上看到初始化的页面
 
 
 ### jsx
 当你开始要写js的时候发现，怎么这么多警告，
+
 不用担心 google 一下都能解决。
+
 在这里下载react 和 react-native：
 ![](https://ohovav7hg.qnssl.com/reactws1.png)
 
@@ -106,6 +108,7 @@ npm run dev，就可以在浏览器上看到初始化的页面
 ![](https://ohovav7hg.qnssl.com/reactws2.png)
 
 警告会少很多，但是还是有一些警告，怎么办呢
+
 点击这个小灯泡，然后选择configure
 ![](https://ohovav7hg.qnssl.com/reactws3.png)
 
@@ -202,8 +205,9 @@ renderTabInit(text, idx) {
 		>{text}</Tab>)
 	},
 ```
-列表渲染 使用map
-v-if 的条件渲染可用三元，如复杂则需要在return前写逻辑代码
+列表渲染的v-for 在react中使用`map`
+
+v-if 的条件渲染可用三元，如复杂判断则需要在return前写逻辑代码
 ```javascript
 render() {
 	let currentPage = null;
@@ -429,6 +433,7 @@ const List = React.createClass({ // 用createdClass创建一个组件
 我们用完整的es6的姿势写出来的代码如下：
 
 ```javascript
+// master
 // 利用class姿势的es6
 import React, {Component} from 'react';
 class List extends Component{
@@ -487,9 +492,11 @@ render() {
 }
 ```
 但是使用了class的写法之后，就可能会出现警告说 props 是null
+
 这个时候就需要手动bind(this)
 ```javascript
-// es6的class写法下的函数的时间绑定，
+// master
+// es6的class写法下的函数的事件绑定，
 // 如果子组件会需要调用函数，则在父组件中手动向子组件中bind(this)
 initListLi(val, idx) {
 	return (
@@ -518,3 +525,9 @@ render() {
 }
 
 ```
+
+
+## 写在后面
+> [github地址：Close2React](https://github.com/AppianZ/Close2React)
+>
+> 我是嘉宝Appian，一个卖萌出家的算法妹纸。
