@@ -1,10 +1,10 @@
 /**
  * Created by appian on 2016/12/14.
  */
-import React,{ Component } from 'react';
+import React, {Component} from 'react';
 
-class List extends Component {
-	constructor(props) {
+class List extends Component{
+	constructor(props){
 		super(props);
 		this.state = {
 			status: false, //true是修改
@@ -23,26 +23,38 @@ class List extends Component {
 		})
 	}
 	
+	deleteLiValue(){
+		this.props.deleteItem(this.props.index);
+	}
+	
+	handleTxt(event) {
+		this.props.handleTxtChange(event, this.props.index);
+	}
+	
+	handleCheck(event) {
+		this.props.handleCheckChange(event, this.props.index);
+	}
+	
 	render (){
 		return (
 			<li className="li">
 				<input type="checkbox"
 					   checked={this.props.status}
 					   data-index={this.props.index}
-					   onChange={()=>this.props.handleCheckChange()}/>
+					   onChange={this.handleCheck.bind(this)}/>
 				{
 					this.state.status ?
 						<input type="text" className="ipt"
 							   defaultValue={this.props.text}
 							   data-index={this.props.index}
-							   onChange={(e)=>this.props.handleTxtChange(e)}/> :
+							   onChange={this.handleTxt.bind(this)}/> :
 						<p className="p">{this.props.text}</p>
 				}
-				<button className="btn btn-danger" onClick={()=>this.props.deleteItem()}>删除</button>
+				<button className="btn btn-danger" onClick={this.deleteLiValue.bind(this)}>删除</button>
 				{
 					this.state.status ?
-						<button className="btn btn-save" onClick={()=>this.saveLiValue()}>保存</button> :
-						<button className="btn btn-save" onClick={()=>this.editLiValue()}>编辑</button>
+						<button className="btn btn-save" onClick={this.saveLiValue.bind(this)}>保存</button> :
+						<button className="btn btn-save" onClick={this.editLiValue.bind(this)}>编辑</button>
 				}
 			</li>
 		)
@@ -51,7 +63,7 @@ class List extends Component {
 
 
 class Add extends Component{
-	constructor(props) {
+	constructor(props){
 		super(props);
 		this.state = {
 			addValue: '',
@@ -80,14 +92,14 @@ class Add extends Component{
 	render() {
 		return (
 			<div>
-				<input className="ipt" onChange={(e)=>this.handleAddChange(e)} value={this.addStatus} ref="addIpt"/>
-				<button className="btn btn-save" style={{float: 'left'}} onClick={()=>this.add()}>添加</button>
+				<input className="ipt" onChange={this.handleAddChange.bind(this)} value={this.addStatus} ref="addIpt"/>
+				<button className="btn btn-save" style={{float: 'left'}} onClick={this.add.bind(this)}>添加</button>
 			</div>
 		)
 	}
 }
 
-class PageA extends Component {
+class PageA extends Component{
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -101,7 +113,7 @@ class PageA extends Component {
 				text: 'this is todo lIST 2',
 				status: true
 			}],
-			didCount: 0,
+			didCount: 0
 		}
 	}
 	
@@ -129,7 +141,7 @@ class PageA extends Component {
 		this.initDidCount();
 	}
 	
-	handleCheckChange(idx) {
+	handleCheckChange(event, idx) {
 		this.state.list[idx].status = !this.state.list[idx].status;
 		this.setState({
 			list: this.state.list
@@ -156,9 +168,9 @@ class PageA extends Component {
 	initListLi(val, idx) {
 		return (
 			<List {...val} key={idx} index={idx}
-				  handleTxtChange={(e)=>this.handleTxtChange(e,idx)}
-				  handleCheckChange={()=>this.handleCheckChange(idx)}
-				  deleteItem={()=>this.deleteItem(idx)}
+				  handleTxtChange={this.handleTxtChange.bind(this)}
+				  handleCheckChange={this.handleCheckChange.bind(this)}
+				  deleteItem={this.deleteItem.bind(this)}
 			/>
 		)
 	}
@@ -170,14 +182,13 @@ class PageA extends Component {
 				<h3 className="h3">目前完成条数: {this.state.didCount}</h3>
 				<ul className="ul">
 					{
-						this.state.list.map((val,idx)=>this.initListLi(val,idx))
+						this.state.list.map(this.initListLi.bind(this))
 					}
 				</ul>
-				<Add addLiItem={(obj)=>this.addLiItem(obj)}/>
+				<Add addLiItem={this.addLiItem.bind(this)}/>
 			</article>
 		)
 	}
-	
 }
 
 export default PageA;

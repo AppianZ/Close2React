@@ -318,8 +318,120 @@ const Add = React.createClass({
 ```
 
 - - - - --
+## 究极正确形态
+### 比如案例3
+```html
+// add子组件部分
+render() {
+	return (
+		<div> 
+		    // 利用箭头函数的形式的写法，但是调用的是子组件里的方法
+			<input className="ipt" onChange={(e)=>this.handleAddChange(e)} value={this.addStatus} ref="addIpt"/>
+			<button className="btn btn-save" style={{float: 'left'}} onClick={()=>this.add()}>添加</button>
+		</div>
+	)
+}
+	
+// 父组件部分
+// 需要一个参数obj，配合父组件的addLiItem方法的参数
+// 第一个obj是指，子组件传递过来的参数，然后把子组件传递过来的参数传给父组件的addLiItem方法
+<Add addLiItem={(obj)=>this.addLiItem(obj)}/>
+```
+
+## 案例2的todolist的编辑保存
+```html
+// 父组件中
+// 修改input的值，则需要event和idx两个参数
+handleTxtChange(event, idx){ 
+	this.state.list[idx].text = event.target.value;
+	this.setState({
+		list: this.state.list
+	});
+	this.initDidCount();
+}
+
+// 修改checkbox的值，只需要idx
+handleCheckChange(idx) { 
+	this.state.list[idx].status = !this.state.list[idx].status;
+	this.setState({
+		list: this.state.list
+	});
+	this.initDidCount();
+}
+
+// 删除一条记录，只需要idx
+deleteItem(idx) {
+	var temp = this.state.list.splice(idx, 1);
+	this.setState({
+		list: this.state.list
+	});
+	this.initDidCount();
+}
+
+// 循环输出todolist
+initListLi(val, idx) { 
+	return (
+		<List {...val} key={idx} index={idx}
+	          // 把父组件的方法作为prop
+			  handleTxtChange={(e)=>this.handleTxtChange(e,idx)}
+			  handleCheckChange={()=>this.handleCheckChange(idx)}
+			  // 调用父组件的删除方法需要传一个idx
+			  deleteItem={()=>this.deleteItem(idx)}
+		/>
+	)
+}
+
+render() {
+	return (
+		<article className="page">
+			...
+			<ul className="ul">
+			    // 在map中调用父组件本身的方法，并把map的参数传给initListLi
+			    // 第一个(val,idx)是指，map方法自带的参数，然后把子组件传递过来的参数传给父组件的initListLi方法
+				{  this.state.list.map((val,idx)=>this.initListLi(val,idx))  }
+			</ul>
+			...
+		</article>
+	)
+}
+
+// todolist的一条记录的子组件
+render (){
+	return (
+		<li className="li">
+			<input type="checkbox"
+				   checked={this.props.status}
+				   data-index={this.props.index}
+				   // 不需要`中转函数` 直接调用props的handleCheckChange方法，
+				   onChange={()=>this.props.handleCheckChange()}/>
+			{
+				this.state.status ?
+					<input type="text" className="ipt"
+						   defaultValue={this.props.text}
+						   data-index={this.props.index}
+					   	   // 不需要`中转函数` 直接调用props的handleTxtChange方法，带一个参数e
+						   onChange={(e)=>this.props.handleTxtChange(e)}/> :
+					<p className="p">{this.props.text}</p>
+			}
+             // 不需要`中转函数` 直接调用props的deleteItem方法
+			<button className="btn btn-danger" onClick={()=>this.props.deleteItem()}>删除</button>
+			{
+				this.state.status ?
+					<button className="btn btn-save" onClick={()=>this.saveLiValue()}>保存</button> :
+					<button className="btn btn-save" onClick={()=>this.editLiValue()}>编辑</button>
+			}
+		</li>
+	)
+}
+```
+- - - - -
 # 总结
 为了尽可能使用pure function，也为了保证挂载的时候不要出问题
+
 在子组件需要调用父组件的this.props.function的时候
-尽可能使用`中转函数`
+
+尽可能使用`中转函数`，就像[page_a_1.js](/src/index/components/page_a_1.js)一样
+
+但是如果你能够正确使用`箭头函数`，还是使用箭头函数，就像[page_a.js](/src/index/components/page_a.js)一样
+
 你懂得~~
