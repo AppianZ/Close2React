@@ -22,7 +22,7 @@ class List extends Component {
 			status: true
 		})
 	}
-	
+	 
 	render (){
 		return (
 			<li className="li">
