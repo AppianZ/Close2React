@@ -430,8 +430,8 @@ render (){
 
 在子组件需要调用父组件的this.props.function的时候
 
-尽可能使用`中转函数`，就像[page_a_1.js](/src/index/components/page_a_1.js)一样
+尽可能使用`中转函数`，就像[page_a_1.js](/src/index/components/page_a_1.js) 和 [page_b_1.js](/src/index/components/page_b_1.js)一样
 
-但是如果你能够正确使用`箭头函数`，还是使用箭头函数，就像[page_a.js](/src/index/components/page_a.js)一样
+但是如果你能够正确使用`箭头函数`，还是使用箭头函数，就像[page_a.js](/src/index/components/page_a.js) 和 [page_b.js](/src/index/components/page_b.js)一样
 
 你懂得~~

@@ -21,7 +21,7 @@ class List extends Component{
 	render (){
 		return (
 			<ul>
-				{this.props.data.map(this.initLi)}
+				{this.props.data.map(this.initLi.bind(this))}
 			</ul>
 		)
 	}
@@ -80,11 +80,11 @@ class PageB extends Component{
 				<h3 className="h3">利用axios发起请求,搜索github用户</h3>
 				<input className="ipt" type="text"
 					   defaultValue={this.keyword}
-					   onChange={(e)=>this.handleSearchKey(e)}
+					   onChange={this.handleSearchKey.bind(this)}
 					   ref="searchIpt"
-					   onKeyUp={(e)=>this.handleKeyUp(e)}
+					   onKeyUp={this.handleKeyUp.bind(this)}
 					   placeholder="您可以在这里搜索github用户名"/>
-				<button className="btn btn-save" onClick={()=>this.searchUserAxios()}>搜索</button>
+				<button className="btn btn-save" onClick={this.searchUserAxios.bind(this)}>搜索</button>
 				<div dangerouslySetInnerHTML={{__html: targetTemp}}/>
 				<List data={this.state.list}/>
 			</article>
