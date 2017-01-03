@@ -1,10 +1,10 @@
 /**
  * Created by appian on 2016/12/14.
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-class List extends Component{
-	constructor(props){
+class List extends Component {
+	constructor(props) {
 		super(props);
 		this.state = {
 			status: false, //true是修改
@@ -17,13 +17,13 @@ class List extends Component{
 		})
 	}
 	
-	editLiValue(){
+	editLiValue() {
 		this.setState({
 			status: true
 		})
 	}
 	
-	deleteLiValue(){
+	deleteLiValue() {
 		this.props.deleteItem(this.props.index);
 	}
 	
@@ -35,7 +35,7 @@ class List extends Component{
 		this.props.handleCheckChange(event, this.props.index);
 	}
 	
-	render (){
+	render() {
 		return (
 			<li className="li">
 				<input type="checkbox"
@@ -62,8 +62,8 @@ class List extends Component{
 }
 
 
-class Add extends Component{
-	constructor(props){
+class Add extends Component {
+	constructor(props) {
 		super(props);
 		this.state = {
 			addValue: '',
@@ -77,14 +77,14 @@ class Add extends Component{
 		})
 	}
 	
-	add(){
+	add() {
 		this.props.addLiItem({
 			text: this.state.addValue,
 			status: false
 		});
 		this.setState({
 			addValue: ''
-		}, ()=>{
+		}, ()=> {
 			this.refs.addIpt.value = '';
 		});
 	}
@@ -93,13 +93,13 @@ class Add extends Component{
 		return (
 			<div>
 				<input className="ipt" onChange={this.handleAddChange.bind(this)} value={this.addStatus} ref="addIpt"/>
-				<button className="btn btn-save" style={{float: 'left'}} onClick={this.add.bind(this)}>添加</button>
+				<button className="btn btn-save" style={{ float: 'left' }} onClick={this.add.bind(this)}>添加</button>
 			</div>
 		)
 	}
 }
 
-class PageA extends Component{
+class PageA extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -117,7 +117,7 @@ class PageA extends Component{
 		}
 	}
 	
-	componentDidMount(){
+	componentDidMount() {
 		this.initDidCount();
 	}
 	
@@ -133,7 +133,7 @@ class PageA extends Component{
 		})
 	}
 	
-	handleTxtChange(event, idx){
+	handleTxtChange(event, idx) {
 		this.state.list[idx].text = event.target.value;
 		this.setState({
 			list: this.state.list

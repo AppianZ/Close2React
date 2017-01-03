@@ -3,8 +3,8 @@
  */
 import React, { Component } from 'react';
 
-class PageC extends Component{
-	constructor(props){
+class PageC extends Component {
+	constructor(props) {
 		super(props);
 	}
 	

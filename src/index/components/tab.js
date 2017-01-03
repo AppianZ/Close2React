@@ -1,10 +1,10 @@
 /**
  * Created by appian on 2016/12/14.
  */
-import React, {Component}  from 'react';
+import React, { Component }  from 'react';
 
-class Tab extends Component{
-	constructor(props){
+class Tab extends Component {
+	constructor(props) {
 		super(props);
 	}
 	
@@ -12,9 +12,9 @@ class Tab extends Component{
 		this.props.choose(this.props.idx);
 	}
 	
-	render(){
+	render() {
 		return (
-			<span className={this.props.idx == this.props.choice? "tab on" : "tab"}
+			<span className={this.props.idx == this.props.choice ? "tab on" : "tab"}
 				  data-idx={this.props.idx}
 				  onClick={this.chooseTab.bind(this)}
 			>{this.props.children}</span>

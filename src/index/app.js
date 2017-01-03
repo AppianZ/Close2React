@@ -1,15 +1,15 @@
 /**
  * Created by appian on 2016/12/14.
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Tab from './components/tab';
 import PageA from './components/page_a';
 import PageB from './components/page_b';
 import PageC from './components/page_c';
 
 
-class Content extends Component{
-	constructor(props){
+class Content extends Component {
+	constructor(props) {
 		super(props);
 		this.state = {
 			tabTxt: ['CURD', 'Axios', 'Others'],
@@ -18,7 +18,7 @@ class Content extends Component{
 		
 	}
 	
-	switchChoice(idx){
+	switchChoice(idx) {
 		this.setState({
 			choice: idx
 		})
@@ -33,9 +33,9 @@ class Content extends Component{
 	
 	render() {
 		let currentPage = null;
-		if(this.state.choice == 0) {
+		if (this.state.choice == 0) {
 			currentPage = <PageA />
-		} else if (this.state.choice == 1){
+		} else if (this.state.choice == 1) {
 			currentPage = <PageB />
 		} else {
 			currentPage = <PageC />
@@ -55,9 +55,8 @@ class Content extends Component{
 }
 
 
-
-class App extends Component{
-	constructor(props){
+class App extends Component {
+	constructor(props) {
 		super(props);
 	}
 	

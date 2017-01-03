@@ -1,7 +1,7 @@
 /**
  * Created by appian on 2016/12/14.
  */
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 
 class List extends Component {
 	constructor(props) {
@@ -17,13 +17,13 @@ class List extends Component {
 		})
 	}
 	
-	editLiValue(){
+	editLiValue() {
 		this.setState({
 			status: true
 		})
 	}
-	 
-	render (){
+	
+	render() {
 		return (
 			<li className="li">
 				<input type="checkbox"
@@ -50,7 +50,7 @@ class List extends Component {
 }
 
 
-class Add extends Component{
+class Add extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -65,14 +65,14 @@ class Add extends Component{
 		})
 	}
 	
-	add(){
+	add() {
 		this.props.addLiItem({
 			text: this.state.addValue,
 			status: false
 		});
 		this.setState({
 			addValue: ''
-		}, ()=>{
+		}, ()=> {
 			this.refs.addIpt.value = '';
 		});
 	}
@@ -81,7 +81,7 @@ class Add extends Component{
 		return (
 			<div>
 				<input className="ipt" onChange={(e)=>this.handleAddChange(e)} value={this.addStatus} ref="addIpt"/>
-				<button className="btn btn-save" style={{float: 'left'}} onClick={()=>this.add()}>添加</button>
+				<button className="btn btn-save" style={{ float: 'left' }} onClick={()=>this.add()}>添加</button>
 			</div>
 		)
 	}
@@ -105,7 +105,7 @@ class PageA extends Component {
 		}
 	}
 	
-	componentDidMount(){
+	componentDidMount() {
 		this.initDidCount();
 	}
 	
@@ -121,7 +121,7 @@ class PageA extends Component {
 		})
 	}
 	
-	handleTxtChange(event, idx){
+	handleTxtChange(event, idx) {
 		this.state.list[idx].text = event.target.value;
 		this.setState({
 			list: this.state.list
@@ -156,7 +156,7 @@ class PageA extends Component {
 	initListLi(val, idx) {
 		return (
 			<List {...val} key={idx} index={idx}
-				  handleTxtChange={(e)=>this.handleTxtChange(e,idx)}
+				  handleTxtChange={(e)=>this.handleTxtChange(e, idx)}
 				  handleCheckChange={()=>this.handleCheckChange(idx)}
 				  deleteItem={()=>this.deleteItem(idx)}
 			/>
@@ -170,7 +170,7 @@ class PageA extends Component {
 				<h3 className="h3">目前完成条数: {this.state.didCount}</h3>
 				<ul className="ul">
 					{
-						this.state.list.map((val,idx)=>this.initListLi(val,idx))
+						this.state.list.map((val, idx)=>this.initListLi(val, idx))
 					}
 				</ul>
 				<Add addLiItem={(obj)=>this.addLiItem(obj)}/>
